@@ -2,7 +2,7 @@
   <div class="c_cell-wrapper">
     <div class="c_cell-input-box">
       <div class="c_cell-title" v-if="title">
-        <slot>{{title}}</slot>
+        <slot name="title">{{title}}</slot>
       </div>
       <div class="c_cell-field">
         <sup class="c_cell-required" v-if="required">*</sup>

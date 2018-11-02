@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '//at.alicdn.com/t/font_869194_9chdf1czp0a.css';
+@import '//at.alicdn.com/t/font_869194_nujouwg8lv.css';
 .icon {
   width: 1em;
   height: 1em;

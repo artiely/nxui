@@ -40,6 +40,11 @@ export default {
       type: Boolean,
       default: false
     },
+    // TODO:
+    loading: {
+      type: Boolean,
+      default: false
+    },
     leftIcon: {
       type: String,
       default: ''

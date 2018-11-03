@@ -8,9 +8,9 @@
         <div class="c_cell-field">
           <slot name="text">
             <sup class="c_cell-required" v-if="required">*</sup>
-            <div class="c_cell-text-field"  :class="{'c_cell-placeholder':!text,'c_cell-wrap': wrap}">
+            <div class="c_cell-text-field" :class="{'c_cell-placeholder':!text,'c_cell-wrap': wrap}">
               <span class="c_cell-text-inner">{{finalText}}</span>
-              </div>
+            </div>
             <div class="c_cell-right-link">
               <nx-icon v-if="link" class="c_cell-link" :name="linkName" @click.native="handleClear"></nx-icon>
             </div>
@@ -114,22 +114,22 @@ export default {
       color: #333;
       line-height: @cell-height;
       text-align: right;
-      width:100px;
+      width: 100px;
       // .textover1();
       &.c_cell-placeholder {
         color: #c7c7c7;
       }
-      &.c_cell-wrap{
-        height:auto!important;
+      &.c_cell-wrap {
+        height: auto !important;
         line-height: 1.5;
-        padding:10px 0;
-        .c_cell-text-inner{
+        padding: 10px 0;
+        .c_cell-text-inner {
           text-align: left;
-          padding-left:5px;
+          padding-left: 5px;
           min-height: 30px;
           display: inline-block;
-          text-align:justify;
-text-justify:inter-ideograph;
+          text-align: justify;
+          text-justify: inter-ideograph;
         }
       }
     }

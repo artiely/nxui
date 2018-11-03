@@ -11,6 +11,24 @@ import nxCell from './cell/cell'
 // import nxPopup3 from './popup/popup3'
 // import nxMask from './popup/mask'
 
+import {
+  nxPulseLoader,
+  nxGridLoader,
+  nxClipLoader,
+  nxRiseLoader,
+  nxBeatLoader,
+  nxSyncLoader,
+  nxRotateLoader,
+  nxFadeLoader,
+  nxPacmanLoader,
+  nxSquareLoader,
+  nxScaleLoader,
+  nxSkewLoader,
+  nxMoonLoader,
+  nxRingLoader,
+  nxBounceLoader,
+  nxDotLoader
+} from './spinner'
 // 存储组件列表
 const components = [
   nxButton,
@@ -20,7 +38,23 @@ const components = [
   nxCellGroup,
   nxCellInput,
   nxPopup,
-  nxCell
+  nxCell,
+  nxPulseLoader,
+  nxGridLoader,
+  nxClipLoader,
+  nxRiseLoader,
+  nxBeatLoader,
+  nxSyncLoader,
+  nxRotateLoader,
+  nxFadeLoader,
+  nxPacmanLoader,
+  nxSquareLoader,
+  nxScaleLoader,
+  nxSkewLoader,
+  nxMoonLoader,
+  nxRingLoader,
+  nxBounceLoader,
+  nxDotLoader
 ]
 
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
@@ -47,5 +81,21 @@ export default {
   nxCellGroup,
   nxCellInput,
   nxPopup,
-  nxCell
+  nxCell,
+  nxPulseLoader,
+  nxGridLoader,
+  nxClipLoader,
+  nxRiseLoader,
+  nxBeatLoader,
+  nxSyncLoader,
+  nxRotateLoader,
+  nxFadeLoader,
+  nxPacmanLoader,
+  nxSquareLoader,
+  nxScaleLoader,
+  nxSkewLoader,
+  nxMoonLoader,
+  nxRingLoader,
+  nxBounceLoader,
+  nxDotLoader
 }

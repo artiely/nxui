@@ -100,9 +100,8 @@
       <nx-popup v-model="show4" position="left" get-container="body" style="height:50%;width:300px;background:red">
         <div ></div>
       </nx-popup>
-
       <nx-popup v-model="show6" position="left" get-container="body" containerClass="containerClass" style="height:100%;width:100%;background:red">
-        <div ></div>
+        <div @click="show6=false">guanbi</div>
       </nx-popup>
 
       <nx-popup v-model="show5" position="center" get-container="body" style="height:100px;width:100px;background:red">
@@ -116,6 +115,8 @@
       <nx-popup v-model="show7" position="top" style="width:100%;height:300px;background:red">
         <div >999999999999999999</div>
       </nx-popup>
+
+      <nx-moon-loader></nx-moon-loader>
     </div>
   </div>
 </template>

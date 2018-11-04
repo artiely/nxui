@@ -24,11 +24,11 @@ export default {
     },
     size: {
       type: String,
-      default: '60px'
+      default: '1em'
     },
     margin: {
       type: String,
-      default: '2px'
+      default: '2em'
     },
     radius: {
       type: String,
@@ -50,20 +50,20 @@ export default {
     },
     spinnerMoonStyle() {
       return {
-        height: this.moonSize + 'px',
-        width: this.moonSize + 'px',
+        height: this.moonSize + 'em',
+        width: this.moonSize + 'em',
         borderRadius: this.radius
       }
     },
     animationStyle2() {
       return {
-        top: parseFloat(this.size) / 2 - this.moonSize / 2 + 'px',
+        top: parseFloat(this.size) / 2 - this.moonSize / 2 + 'em',
         backgroundColor: this.color
       }
     },
     animationStyle3() {
       return {
-        border: this.moonSize + 'px solid ' + this.color
+        border: this.moonSize + 'em solid ' + this.color
       }
     }
   }

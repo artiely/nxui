@@ -7,6 +7,7 @@ import nxCellGroup from './cell/cell-group'
 import nxCellInput from './cell/cell-input'
 import nxPopup from './popup'
 import nxCell from './cell/cell'
+import nxPicker from './picker'
 // import nxPopup2 from './popup/popup'
 // import nxPopup3 from './popup/popup3'
 // import nxMask from './popup/mask'
@@ -27,7 +28,7 @@ import {
   nxMoonLoader,
   nxRingLoader,
   nxBounceLoader,
-  nxDotLoader
+  nxDotLoader,
 } from './spinner'
 // 存储组件列表
 const components = [
@@ -54,7 +55,8 @@ const components = [
   nxMoonLoader,
   nxRingLoader,
   nxBounceLoader,
-  nxDotLoader
+  nxDotLoader,
+  nxPicker
 ]
 
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
@@ -97,5 +99,6 @@ export default {
   nxMoonLoader,
   nxRingLoader,
   nxBounceLoader,
-  nxDotLoader
+  nxDotLoader,
+  nxPicker
 }

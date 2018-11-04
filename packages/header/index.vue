@@ -8,10 +8,13 @@
               <nx-icon :name="leftIcon" v-if="leftIcon"></nx-icon>
             </slot>
           </div>
-          <div class="c_header-title" :class="titleClass" @click="handleTitle">
-            <slot name="title">
-              {{title}}
-            </slot>
+          <div class="c_header-center">
+            <nx-moon-loader class="c_header-loading" v-if="loading" :color="loadingColor"></nx-moon-loader>
+            <div class="c_header-title" :class="titleClass" @click="handleTitle">
+              <slot name="title">
+                {{title}}
+              </slot>
+            </div>
           </div>
           <div class="c_header-right" :class="rightClass" @click="handleRight">
             <slot name="right">
@@ -42,8 +45,12 @@ export default {
     },
     // TODO:
     loading: {
-      type: Boolean,
+      type: [Boolean, Object],
       default: false
+    },
+    loadingColor: {
+      type: String,
+      default: '#1690ff'
     },
     leftIcon: {
       type: String,
@@ -70,6 +77,13 @@ export default {
       default: ''
     }
   },
+  computed: {
+    loadingShow() {
+      return this.loading && this.loading.show === true
+        ? this.loading.show
+        : this.loading
+    }
+  },
   methods: {
     handleLeft(e) {
       this.$emit('handle-left', e)
@@ -87,14 +101,14 @@ export default {
 <style lang="less">
 // @import '../../assets/style/var.less';
 // @import '../../assets/style/border.less';
-@header-height: 44px;
+@header_height: 44px;
 .c_header {
   // position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: @header-height;
-  line-height: @header-height;
+  height: @header_height;
+  line-height: @header_height;
   background: #f8f8f8;
   color: #434a5a;
   font-weight: 500;
@@ -131,8 +145,19 @@ export default {
       padding-right: 10px;
     }
     .c_header-title {
-      padding: 0 5px;
       .textover1();
+      text-align: justify;
+      text-justify: inter-ideograph;
+    }
+    .c_header-center {
+      overflow: hidden;
+      padding: 0 25px;
+      position: relative;
+      .c_header-loading {
+        position: absolute;
+        top: (@header_height - 20) / 2;
+        left: 5px;
+      }
     }
   }
 }

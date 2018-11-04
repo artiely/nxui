@@ -26,7 +26,7 @@
         </div>
       </nx-header>
       左右文字
-      <nx-header border shadow title="中间标题中间标题中间标题中间标题">
+      <nx-header border shadow title="中间标题中间标题中间标题中间标题" :loading="loading">
         <div slot="left">
           取消
         </div>
@@ -35,7 +35,7 @@
         </div>
       </nx-header>
       1
-      <nx-header border shadow title="流水">
+      <nx-header border shadow title="流水" :loading="loading" loading-color="#333">
         <div slot="left">
           <nx-icon name="icon-v-icon-arrow-left" style="padding-right:5px"></nx-icon>返回
         </div>
@@ -43,6 +43,8 @@
           消费记录
         </div>
       </nx-header>
+      <nx-button @click.native="loading=true">true</nx-button>
+      <nx-button @click.native="loading=false">false</nx-button>
       <div v-html="html"></div>
       <nx-icon name="icon-tianjiahaoyou" color="#f00"></nx-icon>
       <nx-icon name="icon-tianjiahaoyou" symbol></nx-icon>
@@ -75,7 +77,7 @@
         <nx-cell text="请输入1" title="cell" link placeholder="请输入"></nx-cell>
         <nx-cell text="请输入2" title="cell" placeholder="xx"></nx-cell>
         <nx-cell text="" title="cell" placeholder="请选择日期" link></nx-cell>
-        <nx-cell text="请选择日期请选择日期请选择日期请选择日期请选择日期请选择日期请选择日期" title="cell" placeholder="" link ></nx-cell>
+        <nx-cell text="请选择日期请选择日期请选择日期请选择日期请选择日期请选择日期请选择日期" title="cell" placeholder="" link></nx-cell>
         <nx-cell text="请选择日期请选择日期请选择日期请选择日期请选择日期请选择日期请选择日期" title="cell" placeholder="" link wrap></nx-cell>
         <nx-cell text="请选择日期请选择日期请" title="cell" placeholder="" link wrap></nx-cell>
       </nx-cell-group>
@@ -87,25 +89,25 @@
       <button @click="show5=true">zhong</button><br>
       <button @click="show6=true">full</button><br>
       <button @click="show7=true">77777777777</button><br>
-      <nx-popup v-model="show1" position="top" get-container="body"  style="height:300px;width:100%;background:red">
+      <nx-popup v-model="show1" position="top" get-container="body" style="height:300px;width:100%;background:red">
         <div>123</div>
       </nx-popup>
 
       <nx-popup v-model="show2" position="right" get-container="body" style="height:50%;width:200px;background:red">
-        <div ></div>
+        <div></div>
       </nx-popup>
       <nx-popup v-model="show3" position="bottom" style="height:300px;width:100%;background:red">
-        <div ></div>
+        <div></div>
       </nx-popup>
       <nx-popup v-model="show4" position="left" get-container="body" style="height:50%;width:300px;background:red">
-        <div ></div>
+        <div></div>
       </nx-popup>
       <nx-popup v-model="show6" position="left" get-container="body" containerClass="containerClass" style="height:100%;width:100%;background:red">
         <div @click="show6=false">guanbi</div>
       </nx-popup>
 
       <nx-popup v-model="show5" position="center" get-container="body" style="height:100px;width:100px;background:red">
-        <div ></div>
+        <div></div>
       </nx-popup>
 
       <!-- <nx-popup2 v-model="show7" position="right" style="width:50px;height:50%;background:#fff">
@@ -113,10 +115,12 @@
       </nx-popup2> -->
 
       <nx-popup v-model="show7" position="top" style="width:100%;height:300px;background:red">
-        <div >999999999999999999</div>
+        <div>999999999999999999</div>
       </nx-popup>
 
       <nx-moon-loader></nx-moon-loader>
+
+      <nx-picker :columns="columns" @change="onChange" />
     </div>
   </div>
 </template>
@@ -135,13 +139,27 @@ export default {
       show5: false,
       show6: false,
       show7: false,
-      position: 'top'
+      position: 'top',
+      loading: false,
+      columns:['杭州', '宁波', '温州', '嘉兴', '湖州']
     }
   },
   methods: {
     handleBtn(position) {
       this.position = position
-    }
+    },
+     onChange(picker, value, index) {
+      console.log(`当前值：${value}, 当前索引：${index}`);
+    },
+    onPickerInitialed() {
+      const value = this.$refs.picker.getColumnValues()
+      console.log(`[Mand Mobile] Picker Initialed: ${JSON.stringify(value)}`)
+    },
+    onPickerConfirm(columnIndex, itemIndex, value) {
+      if (value) {
+        this.pickerValue = value.text
+      }
+    },
   },
   mounted() {}
 }

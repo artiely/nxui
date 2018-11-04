@@ -6,8 +6,6 @@
 </template>
 
 <script>
-import loadSprite from './svg'
-
 export default {
   name: 'nx-icon',
   props: {
@@ -28,9 +26,7 @@ export default {
       default: ''
     }
   },
-  mounted() {
-
-  }
+  mounted() {}
 }
 </script>
 
@@ -43,9 +39,9 @@ export default {
   fill: currentColor;
   overflow: hidden;
   font-size: 44px;
-  color:green
+  color: green;
 }
-.iconfont{
-  font-size: 44px
+.iconfont {
+  font-size: 44px;
 }
 </style>

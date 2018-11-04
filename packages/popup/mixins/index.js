@@ -34,6 +34,10 @@ export default {
     lazyRender: {
       type: Boolean,
       default: true
+    },
+    push:{
+      type: Boolean,
+      default: true
     }
   },
 
@@ -70,6 +74,15 @@ export default {
     }
     if (this.value) {
       this.open()
+    }
+    if(this.push){
+      on(window,'popstate',(e)=>{
+        
+      
+      console.log('9999',e)
+        console.log('hid---',history.length)
+        this.close()
+      })
     }
   },
 
@@ -117,6 +130,10 @@ export default {
         }
         context.lockCount++
       }
+      if(this.push){
+        window.history.pushState({state:'popup'},'popup')
+        console.log('hid',history.length)
+      }
     },
 
     close() {
@@ -137,6 +154,10 @@ export default {
       this.opened = false
       manager.close(this)
       this.$emit('input', false)
+      if(this.push){
+        window.history.back()
+      
+      }
     },
 
     move() {

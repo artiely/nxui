@@ -22,13 +22,13 @@ export default {
       type: Boolean,
       default: false
     },
-    circle:{
-      type:Boolean,
-      default:false
+    circle: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
-    onBtnClick (event) {
+    onBtnClick(event) {
       if (this.disabled) {
         event.stopImmediatePropagation()
       } else {
@@ -44,13 +44,13 @@ export default {
 // 按钮主色
 @button-primary-fill: #1690ff;
 // 点击高亮色
-@button-primary-fill-tap:darken(@button-primary-fill,10%);
+@button-primary-fill-tap: darken(@button-primary-fill, 10%);
 // 禁用颜色
 @button-primary-fill-disabled: #c7c7c7;
-@button-height:40px;
+@button-height: 40px;
 @button-font-size: 18px;
-@button-border-radius:2px;
-@button-border-radius-circle:@button-height/2;
+@button-border-radius: 2px;
+@button-border-radius-circle: @button-height / 2;
 
 .md-button {
   -webkit-user-select: none;
@@ -63,7 +63,7 @@ export default {
   height: @button-height;
   line-height: @button-height;
   font-size: @button-font-size;
-  &.circle{
+  &.circle {
     border-radius: @button-border-radius-circle;
   }
   &.disabled {
@@ -95,7 +95,7 @@ export default {
   &.primary {
     background-color: @button-primary-fill;
     color: @color-text-base-inverse;
-    &:active{
+    &:active {
       background-color: @button-primary-fill-tap;
     }
     &.disabled {

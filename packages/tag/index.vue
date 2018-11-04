@@ -16,8 +16,8 @@ export default {
       type: String,
       default: ''
     },
-    fill:{
-      type:Boolean,
+    fill: {
+      type: Boolean,
       default: false
     }
   },
@@ -53,7 +53,7 @@ export default {
         border: 'none'
       }
     },
-    fillColor(){
+    fillColor() {
       return {
         color: '#fff',
         backgroundColor: this.color,
@@ -61,7 +61,7 @@ export default {
       }
     }
   },
-  created(){
+  created() {
     console.log(this.$attrs)
   }
 }

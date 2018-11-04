@@ -18,6 +18,7 @@ export default {
         config,
         target
       })
+      // window.history.pushState('xx','xx')
       this.update()
     }
   },

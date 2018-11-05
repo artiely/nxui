@@ -1,6 +1,12 @@
 const path = require('path')
+const px2rem = require('postcss-px2rem')
+
+const postcss = px2rem({
+  remUnit: 37.5,
+  baseDpr: 1,
+})
 module.exports = {
-  runtimeCompiler: true,//是否使用包含运行时编译器的 Vue 构建版本
+  runtimeCompiler: true, //是否使用包含运行时编译器的 Vue 构建版本
   productionSourceMap: false, //不在production环境使用SourceMap
   // 修改 src 目录 为 examples 目录
   pages: {
@@ -13,7 +19,7 @@ module.exports = {
   // 实时热更无效
   chainWebpack: config => {
     config.resolve
-        .symlinks(true)
+      .symlinks(true)
     return config
   },
   // 扩展 webpack 配置，使 packages 加入编译
@@ -29,17 +35,17 @@ module.exports = {
         // 修改它的选项...
         return options
       });
-      // config.module.rule('md')
-      // .test(/\.md/)
-      // .use('vue-loader')
-      // .loader('vue-loader')
-      // .end()
-      // .use('vue-markdown-loader')
-      // .loader('vue-markdown-loader/lib/markdown-compiler')
-      // .options({
-      //   raw: true
-      // })
   },
+  // chainWebpack: config => {
+  //   config.module
+  //     .rule('css')
+  //     .test(/\.css$/)
+  //     .use('px2rem')
+  //     .loader('px2rem-loader')
+  //     .options({
+  //       remUnit: 75
+  //     })
+  // },
 
   pluginOptions: {
     'style-resources-loader': {
@@ -49,13 +55,18 @@ module.exports = {
       ]
     }
   },
-   //需要热更新此处设置成false
+  //需要热更新此处设置成false
   css: {
     loaderOptions: {
       less: {
         javascriptEnabled: true,
         resources: [
           path.resolve(__dirname, './packages/style/main.less'),
+        ]
+      },
+      postcss: {
+        plugins: [
+          postcss
         ]
       }
     }

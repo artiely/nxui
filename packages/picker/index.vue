@@ -11,26 +11,16 @@
       <loading />
     </div>
     <div class="van-picker__columns" :style="columnsStyle" @touchmove.prevent>
-      <picker-column
-        v-for="(item, index) in (simple ? [columns] : columns)"
-        :key="index"
-        :value-key="valueKey"
-        :initial-options="simple ? item : item.values"
-        :class-name="item.className"
-        :default-index="item.defaultIndex"
-        :item-height="itemHeight"
-        :visible-item-count="visibleItemCount"
-        @change="onChange(index)"
-      />
-      <div class="van-picker__frame van-hairline--top-bottom"  :style="frameStyle" />
+      <picker-column v-for="(item, index) in (simple ? [columns] : columns)" :key="index" :value-key="valueKey" :initial-options="simple ? item : item.values" :class-name="item.className" :default-index="item.defaultIndex" :item-height="itemHeight" :visible-item-count="visibleItemCount" @change="onChange(index)" />
+      <div class="van-picker__frame van-hairline--top-bottom" :style="frameStyle" />
     </div>
   </div>
 </template>
 
 <script>
 // import create from '../utils/create';
-import PickerColumn from './picker-column';
-import deepClone from './_util/deep-clone';
+import PickerColumn from './picker-column'
+import deepClone from './_util/deep-clone'
 export default {
   name: 'nx-picker',
   components: {
@@ -62,113 +52,121 @@ export default {
   data() {
     return {
       children: []
-    };
+    }
   },
   computed: {
     frameStyle() {
       return {
-        height: this.itemHeight + 'px'
-      };
+        // height: this.itemHeight + 'px'
+      }
     },
     columnsStyle() {
       return {
         height: this.itemHeight * this.visibleItemCount + 'px'
-      };
+      }
     },
     simple() {
-      return this.columns.length && !this.columns[0].values;
+      return this.columns.length && !this.columns[0].values
     }
   },
   watch: {
     columns() {
-      this.setColumns();
+      this.setColumns()
     }
   },
   methods: {
     setColumns() {
-      const columns = this.simple ? [{ values: this.columns }] : this.columns;
+      const columns = this.simple ? [{ values: this.columns }] : this.columns
       columns.forEach((columns, index) => {
-        this.setColumnValues(index, deepClone(columns.values));
-      });
+        this.setColumnValues(index, deepClone(columns.values))
+      })
     },
     emit(event) {
       if (this.simple) {
-        this.$emit(event, this.getColumnValue(0), this.getColumnIndex(0));
+        this.$emit(event, this.getColumnValue(0), this.getColumnIndex(0))
       } else {
-        this.$emit(event, this.getValues(), this.getIndexes());
+        this.$emit(event, this.getValues(), this.getIndexes())
       }
     },
     onChange(columnIndex) {
       if (this.simple) {
-        this.$emit('change', this, this.getColumnValue(0), this.getColumnIndex(0));
+        this.$emit(
+          'change',
+          this,
+          this.getColumnValue(0),
+          this.getColumnIndex(0)
+        )
       } else {
-        this.$emit('change', this, this.getValues(), columnIndex);
+        this.$emit('change', this, this.getValues(), columnIndex)
       }
     },
     // get column instance by index
     getColumn(index) {
-      return this.children[index];
+      return this.children[index]
     },
     // get column value by index
     getColumnValue(index) {
-      const column = this.getColumn(index);
-      return column && column.getValue();
+      const column = this.getColumn(index)
+      return column && column.getValue()
     },
     // set column value by index
     setColumnValue(index, value) {
-      const column = this.getColumn(index);
-      column && column.setValue(value);
+      const column = this.getColumn(index)
+      column && column.setValue(value)
     },
     // get column option index by column index
     getColumnIndex(columnIndex) {
-      return (this.getColumn(columnIndex) || {}).currentIndex;
+      return (this.getColumn(columnIndex) || {}).currentIndex
     },
     // set column option index by column index
     setColumnIndex(columnIndex, optionIndex) {
-      const column = this.getColumn(columnIndex);
-      column && column.setIndex(optionIndex);
+      const column = this.getColumn(columnIndex)
+      column && column.setIndex(optionIndex)
     },
     // get options of column by index
     getColumnValues(index) {
-      return (this.children[index] || {}).options;
+      return (this.children[index] || {}).options
     },
     // set options of column by index
     setColumnValues(index, options) {
-      const column = this.children[index];
-      if (column && JSON.stringify(column.options) !== JSON.stringify(options)) {
-        column.options = options;
-        column.setIndex(0);
+      const column = this.children[index]
+      if (
+        column &&
+        JSON.stringify(column.options) !== JSON.stringify(options)
+      ) {
+        column.options = options
+        column.setIndex(0)
       }
     },
     // get values of all columns
     getValues() {
-      return this.children.map(child => child.getValue());
+      return this.children.map(child => child.getValue())
     },
     // set values of all columns
     setValues(values) {
       values.forEach((value, index) => {
-        this.setColumnValue(index, value);
-      });
+        this.setColumnValue(index, value)
+      })
     },
     // get indexes of all columns
     getIndexes() {
-      return this.children.map(child => child.currentIndex);
+      return this.children.map(child => child.currentIndex)
     },
     // set indexes of all columns
     setIndexes(indexes) {
       indexes.forEach((optionIndex, columnIndex) => {
-        this.setColumnIndex(columnIndex, optionIndex);
-      });
+        this.setColumnIndex(columnIndex, optionIndex)
+      })
     }
   }
 }
 </script>
 <style lang="less">
-@white:#fff;
-@blue:#1690ff;
-@active-color:#333;
-@gray-dark:#eee;
-@text-color:#555;
+@white: #fff;
+@blue: #1690ff;
+@active-color: #333;
+@gray-dark: #eee;
+@text-color: #555;
 .van-picker {
   overflow: hidden;
   user-select: none;
@@ -213,7 +211,7 @@ export default {
     bottom: 0;
     z-index: 2;
     position: absolute;
-    background-color: rgba(255, 255, 255, .9);
+    background-color: rgba(255, 255, 255, 0.9);
 
     circle {
       stroke: @blue;
@@ -226,10 +224,10 @@ export default {
     left: 0;
     width: 100%;
     z-index: 1;
+    height: 44px;
     position: absolute;
     pointer-events: none;
     transform: translateY(-50%);
-    
   }
 
   &-column {
@@ -248,7 +246,7 @@ export default {
       }
 
       &--disabled {
-        opacity: .3;
+        opacity: 0.3;
       }
     }
   }

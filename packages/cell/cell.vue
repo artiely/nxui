@@ -74,16 +74,18 @@ export default {
 <style scoped lang="less">
 @cell-height: 50px;
 @reqired-color: red;
+@border-color: #333;
 .c_cell-wrapper {
   position: relative;
   overflow: hidden;
   padding-left: 15px;
   margin-bottom: -1px;
   min-height: @cell-height;
-  font-size: 18px;
+  font-size: 16px;
   .c_cell-text-box {
     display: flex;
-    .borderB();
+    // .borderB();
+    border-bottom: 1px  solid @border-color; /* no */
   }
   .c_cell-title {
     line-height: @cell-height;
@@ -108,7 +110,7 @@ export default {
       height: 50px;
       width: 100%;
       background: transparent;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 500;
       padding-left: 10px;
       color: #333;
@@ -121,7 +123,7 @@ export default {
       }
       &.c_cell-wrap {
         height: auto !important;
-        line-height: 1.5;
+        line-height: 30px;
         padding: 10px 0;
         .c_cell-text-inner {
           text-align: left;
@@ -141,6 +143,7 @@ export default {
       line-height: @cell-height;
       color: #c7c7c7;
       padding-right: 5px;
+      font-size: 14px;
     }
   }
 }

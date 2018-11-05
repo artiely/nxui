@@ -114,17 +114,19 @@ export default {
 <style scoped lang="less">
 @cell-height: 50px;
 @reqired-color: red;
+@border-color:#333;
 .c_cell-wrapper {
   position: relative;
   overflow: hidden;
   padding-left: 15px;
   margin-bottom: -1px;
   min-height: @cell-height;
-  font-size: 18px;
+  font-size: 16px;
 
   .c_cell-input-box {
     display: flex;
-    .borderB();
+    // .borderB();
+    border-bottom: 1px solid @border-color;/*no*/
   }
   .c_cell-title {
     line-height: @cell-height;
@@ -149,7 +151,7 @@ export default {
       width: 100%;
       padding: 0;
       background: transparent;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 500;
       padding: 10px;
       color: #333;

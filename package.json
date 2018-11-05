@@ -15,7 +15,10 @@
     "html-loader": "^0.5.5",
     "lib-flexible": "^0.3.2",
     "markdown-loader": "^4.0.0",
+    "postcss-px2rem": "^0.3.0",
     "postcss-pxtorem": "^4.0.1",
+    "px2rem": "^0.5.0",
+    "px2rem-loader": "^0.1.9",
     "showdown": "^1.8.7",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
@@ -55,13 +58,7 @@
   },
   "postcss": {
     "plugins": {
-      "autoprefixer": {},
-      "postcss-pxtorem": {
-        "rootValue": 37.5,
-        "propList": [
-          "*"
-        ]
-      }
+      "autoprefixer": {}
     }
   },
   "browserslist": [

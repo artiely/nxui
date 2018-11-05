@@ -16,11 +16,14 @@ export default {
 }
 </script>
 <style lang="less">
+@border-color:#333;
 .cb-cell-group {
   background: #fff;
   overflow: hidden;
 }
 .cb-cell-group-border {
-  .borderTB()
+  // .borderTB()
+  border-top:1px solid @border-color;/*no*/
+  border-bottom:1px solid @border-color;/*no*/
 }
 </style>

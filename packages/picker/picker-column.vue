@@ -1,34 +1,19 @@
 <template>
-  <div
-    :class="['van-picker-column', className]"
-    :style="columnStyle"
-    @touchstart="onTouchStart"
-    @touchmove.prevent="onTouchMove"
-    @touchend="onTouchEnd"
-    @touchcancel="onTouchEnd"
-  >
+  <div :class="['van-picker-column', className]" :style="columnStyle" @touchstart="onTouchStart" @touchmove.prevent="onTouchMove" @touchend="onTouchEnd" @touchcancel="onTouchEnd">
     <ul :style="wrapperStyle">
-      <li
-        v-for="(option, index) in options"
-        :key="index"
-        v-html="getOptionText(option)"
-        :style="optionStyle"
-        class="van-ellipsis"
-        :class="['van-picker-column__item',
+      <li v-for="(option, index) in options" :key="index" v-html="getOptionText(option)" :style="optionStyle" class="van-ellipsis" :class="['van-picker-column__item',
           isDisabled(option)?'van-picker-column__item--disabled':'',
           index === currentIndex?'van-picker-column__item--selected':''
-        ]"
-        @click="setIndex(index, true)"
-      />
+        ]" @click="setIndex(index, true)" />
     </ul>
   </div>
 </template>
 
 <script>
 // import create from '../utils/create';
-import deepClone from './_util/deep-clone';
-import { isObj, range } from './_util';
-const DEFAULT_DURATION = 200;
+import deepClone from './_util/deep-clone'
+import { isObj, range } from './_util'
+const DEFAULT_DURATION = 200
 export default {
   name: 'picker-column',
   props: {
@@ -53,106 +38,106 @@ export default {
       startOffset: 0,
       options: deepClone(this.initialOptions),
       currentIndex: this.defaultIndex
-    };
+    }
   },
   created() {
-    this.$parent.children && this.$parent.children.push(this);
-    this.setIndex(this.currentIndex);
+    this.$parent.children && this.$parent.children.push(this)
+    this.setIndex(this.currentIndex)
   },
   destroyed() {
-    const { children } = this.$parent;
-    children && children.splice(children.indexOf(this), 1);
+    const { children } = this.$parent
+    children && children.splice(children.indexOf(this), 1)
   },
   watch: {
     defaultIndex() {
-      this.setIndex(this.defaultIndex);
+      this.setIndex(this.defaultIndex)
     }
   },
   computed: {
     count() {
-      return this.options.length;
+      return this.options.length
     },
     baseOffset() {
-      return this.itemHeight * (this.visibleItemCount - 1) / 2;
+      return this.itemHeight * (this.visibleItemCount - 1) / 2
     },
     columnStyle() {
       return {
         height: this.itemHeight * this.visibleItemCount + 'px'
-      };
+      }
     },
     wrapperStyle() {
       return {
         transition: `${this.duration}ms`,
         transform: `translate3d(0, ${this.offset + this.baseOffset}px, 0)`,
         lineHeight: this.itemHeight + 'px'
-      };
+      }
     },
     optionStyle() {
       return {
         height: this.itemHeight + 'px'
-      };
+      }
     }
   },
   methods: {
     onTouchStart(event) {
-      this.startY = event.touches[0].clientY;
-      this.startOffset = this.offset;
-      this.duration = 0;
+      this.startY = event.touches[0].clientY
+      this.startOffset = this.offset
+      this.duration = 0
     },
     onTouchMove(event) {
-      const deltaY = event.touches[0].clientY - this.startY;
+      const deltaY = event.touches[0].clientY - this.startY
       this.offset = range(
         this.startOffset + deltaY,
         -(this.count * this.itemHeight),
         this.itemHeight
-      );
+      )
     },
     onTouchEnd() {
       if (this.offset !== this.startOffset) {
-        this.duration = DEFAULT_DURATION;
+        this.duration = DEFAULT_DURATION
         const index = range(
           Math.round(-this.offset / this.itemHeight),
           0,
           this.count - 1
-        );
-        this.setIndex(index, true);
+        )
+        this.setIndex(index, true)
       }
     },
     adjustIndex(index) {
-      index = range(index, 0, this.count);
+      index = range(index, 0, this.count)
       for (let i = index; i < this.count; i++) {
-        if (!this.isDisabled(this.options[i])) return i;
+        if (!this.isDisabled(this.options[i])) return i
       }
       for (let i = index - 1; i >= 0; i--) {
-        if (!this.isDisabled(this.options[i])) return i;
+        if (!this.isDisabled(this.options[i])) return i
       }
     },
     isDisabled(option) {
-      return isObj(option) && option.disabled;
+      return isObj(option) && option.disabled
     },
     getOptionText(option) {
       return isObj(option) && this.valueKey in option
         ? option[this.valueKey]
-        : option;
+        : option
     },
     setIndex(index, userAction) {
-      index = this.adjustIndex(index) || 0;
-      this.offset = -index * this.itemHeight;
+      index = this.adjustIndex(index) || 0
+      this.offset = -index * this.itemHeight
       if (index !== this.currentIndex) {
-        this.currentIndex = index;
-        userAction && this.$emit('change', index);
+        this.currentIndex = index
+        userAction && this.$emit('change', index)
       }
     },
     setValue(value) {
-      const { options } = this;
+      const { options } = this
       for (let i = 0; i < options.length; i++) {
         if (this.getOptionText(options[i]) === value) {
-          return this.setIndex(i);
+          return this.setIndex(i)
         }
       }
     },
     getValue() {
-      return this.options[this.currentIndex];
+      return this.options[this.currentIndex]
     }
   }
 }

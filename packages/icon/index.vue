@@ -19,7 +19,7 @@ export default {
     },
     size: {
       type: String,
-      default: '0.5rem'
+      default: '1em'
     },
     color: {
       type: String,

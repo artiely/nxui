@@ -35,7 +35,7 @@ export default {
       type: Boolean,
       default: true
     },
-    push:{
+    push: {
       type: Boolean,
       default: true
     }
@@ -75,12 +75,11 @@ export default {
     if (this.value) {
       this.open()
     }
-    if(this.push){
-      on(window,'popstate',(e)=>{
-        
-      
-      console.log('9999',e)
-        console.log('hid---',history.length)
+    if (this.push) {
+      // FIXME:
+      on(window, 'popstate', (e) => {
+        console.log('9999', e)
+        console.log('hid---', history.length)
         this.close()
       })
     }
@@ -130,9 +129,11 @@ export default {
         }
         context.lockCount++
       }
-      if(this.push){
-        window.history.pushState({state:'popup'},'popup')
-        console.log('hid',history.length)
+      if (this.push) {
+        window.history.pushState({
+          state: 'popup'
+        }, 'popup')
+        console.log('hid', history.length)
       }
     },
 
@@ -154,9 +155,8 @@ export default {
       this.opened = false
       manager.close(this)
       this.$emit('input', false)
-      if(this.push){
+      if (this.push) {
         window.history.back()
-      
       }
     },
 

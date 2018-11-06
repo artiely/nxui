@@ -1,5 +1,5 @@
 <template>
-  <div class="c_header">
+  <div class="c_header" :class="{'c_header-fixed':fixed}">
     <div class="c_header-isborder" :class="{'c_header-border':border,'c_header-shadow':shadow}">
       <slot>
         <div class="c_header-inner">
@@ -43,9 +43,12 @@ export default {
       type: Boolean,
       default: false
     },
-    // TODO:
     loading: {
-      type: [Boolean, Object],
+      type: Boolean,
+      default: false
+    },
+    fixed: {
+      type: Boolean,
       default: false
     },
     loadingColor: {
@@ -99,27 +102,32 @@ export default {
 </script>
 
 <style lang="less">
-// @import '../../assets/style/var.less';
-// @import '../../assets/style/border.less';
-@header_height: 44px;
+@header-height: 44px;
+@header-border-color: #c7c7c7;
+@header-fill-color: #f8f8f8;
+@header-title-color: #333;
+@header-title-font-size: 17px;
+@header-btn-color: #1690ff;
 .c_header {
-  // position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: @header_height;
-  line-height: @header_height;
-  background: #f8f8f8;
-  color: #434a5a;
+  height: @header-height;
+  line-height: @header-height;
+  background: @header-fill-color;
+  color: @header-title-color;
   font-weight: 500;
   text-align: center;
   z-index: 999;
-  font-size: 17px;
+  font-size: @header-title-font-size;
+  &.c_header-fixed {
+    position: fixed;
+  }
   .c_header-isborder {
     display: flex;
     height: 100%;
     &.c_header-border {
-      .borderB();
+      border-bottom: 1px solid @header-border-color;
     }
     &.c_header-shadow {
       box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
@@ -134,7 +142,7 @@ export default {
       flex: 1;
       align-items: stretch;
       white-space: nowrap;
-      color: #1690ff;
+      color: @header-btn-color;
     }
     .c_header-left {
       text-align: left;
@@ -155,7 +163,7 @@ export default {
       position: relative;
       .c_header-loading {
         position: absolute;
-        top: (@header_height - 20) / 2;
+        top: (@header-height - 20) / 2;
         left: 5px;
       }
     }

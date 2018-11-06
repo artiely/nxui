@@ -9,12 +9,17 @@
         <nx-icon name="icon-tianjiahaoyou"></nx-icon> 谭杰</nx-button>
       <nx-button circle>
         <nx-icon name="icon-tianjiahaoyou"></nx-icon> 谭杰</nx-button>
+      <br>
+      <nx-button circle type="danger">
+        xx</nx-button>
       默认
       <nx-header></nx-header>
       有下边框
       <nx-header border title="中间标题"></nx-header>
       有阴影
       <nx-header shadow title="中间标题"></nx-header>
+      1
+      <nx-header shadow title="中间标题" loading></nx-header>
       标题很长
       <nx-header border shadow title="中间标题中间标题中间标题中间标题"></nx-header>
       <nx-header left-icon="icon-v-icon-arrow-left" title="中间标题中间标题中间标题中间标题"></nx-header>
@@ -69,17 +74,22 @@
         <nx-cell-input title="电话" placeholder="请输入" type="tel" maxlength="11" v-model="tel"></nx-cell-input>
         <nx-cell-input title="数字" placeholder="请输入" type="number" maxlength="11" v-model="num"></nx-cell-input>
         <nx-cell-input title="数字嘿嘿" placeholder="请输入" type="number" maxlength="11" v-model="num"></nx-cell-input>
+        <nx-cell-input title="标题很长很长" placeholder="请输入" type="number" maxlength="11" v-model="num"></nx-cell-input>
         <nx-cell-input title="禁用" placeholder="请输入" disabled type="number" maxlength="11" v-model="num"></nx-cell-input>
         <nx-cell-input placeholder="请输入" type="number" maxlength="11" v-model="num"></nx-cell-input>
         <nx-cell-input placeholder="请输入" type="password" maxlength="11" v-model="num" eye></nx-cell-input>
         <nx-cell-input placeholder="请输入" type="password" maxlength="11" v-model="num" clear eye></nx-cell-input>
         <nx-cell-input placeholder="请输入" type="password" maxlength="11" v-model="num" clear></nx-cell-input>
-        <nx-cell text="请输入1" title="cell" link placeholder="请输入"></nx-cell>
-        <nx-cell text="请输入2" title="cell" placeholder="xx"></nx-cell>
-        <nx-cell text="" title="cell" placeholder="请选择日期" link></nx-cell>
-        <nx-cell text="请选择日期请选择日期请选择日期请选择日期请选择日期请选择日期请选择日期" title="cell" placeholder="" link></nx-cell>
-        <nx-cell text="请选择日期请选择日期请选择日期请选择日期请选择日期请选择日期请选择日期" title="cell" placeholder="" link wrap></nx-cell>
-        <nx-cell text="请选择日期请选择日期请" title="cell" placeholder="" link wrap></nx-cell>
+        <nx-cell value="请输入1" title="cell" link placeholder="请输入"></nx-cell>
+        <nx-cell value="请输入2" title="cell" placeholder="xx"></nx-cell>
+        <nx-cell value="" title="cell" placeholder="请选择日期" link></nx-cell>
+        <nx-cell value="请选择日期请选择日期请选择日期请选择日期请选择日期请选择日期请选择日期" title="cell" placeholder="" link></nx-cell>
+        <nx-cell value="请选择日期请选择日期请选择日期请选择日期请选择日期请选择日期请选择日期" title="cell" placeholder="" link wrap></nx-cell>
+        <nx-cell value="请选择日期请选择日期请" title="cell" placeholder="" link wrap></nx-cell>
+        <nx-cell v-model="xx" title="cell" placeholder="请选择时间" link  :datetime-picker="datetimePicker"></nx-cell>
+        <nx-cell v-model="xxx" title="cell" placeholder="请选择时间" link  :datetime-picker="datetimePicker2"></nx-cell>
+        <nx-cell v-model="xxxx" title="cell" placeholder="请选择时间" link  :datetime-picker="datetimePicker3"></nx-cell>
+        <nx-cell-datetime title="保险到期" v-model="xx" type="date"></nx-cell-datetime>
       </nx-cell-group>
       <button @click="show1=true">上</button>
       <br>
@@ -121,10 +131,13 @@
       <nx-moon-loader></nx-moon-loader>
 
       <nx-picker :columns="columns" @change="onChange" />
+      <nx-picker :columns="columns" @change="onChange" loading/>
+      <nx-datetime-picker v-model="currentDate" type="datetime" :min-hour="minHour" :max-hour="maxHour" :min-date="minDate" :max-date="maxDate" />
     </div>
   </div>
 </template>
 <script>
+import dayjs from 'dayjs'
 export default {
   data() {
     return {
@@ -132,6 +145,9 @@ export default {
       money: '',
       tel: '',
       num: '12',
+      xx: '',
+      xxx: '2019/08/08 01:01',
+      xxxx: '01:01:00',
       show1: false,
       show2: false,
       show3: false,
@@ -141,15 +157,44 @@ export default {
       show7: false,
       position: 'top',
       loading: false,
-      columns:['杭州', '宁波', '温州', '嘉兴', '湖州']
+      columns: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
+      datetimePicker: {
+        type: 'datetime',
+        minHour: 10,
+        maxHour: 20,
+        minDate: new Date(),
+        maxDate: new Date(2019, 10, 1),
+        format:'YYYY-MM-DD HH:mm'
+      },
+      datetimePicker2: {
+        type: 'datetime',
+        minHour: 10,
+        maxHour: 20,
+        minDate: new Date(),
+        maxDate: new Date(2019, 10, 1),
+        format:'YYYY/MM/DD HH:mm'
+      },
+      datetimePicker3: {
+        type: 'time',
+        minHour: 10,
+        maxHour: 20,
+        minDate: new Date(),
+        maxDate: new Date(2019, 10, 1),
+        format:'HH:mm:ss'
+      },
+      minHour: 10,
+      maxHour: 20,
+      minDate: new Date(),
+      maxDate: new Date(2019, 10, 1),
+      currentDate: '2019-08-08 01:01'
     }
   },
   methods: {
     handleBtn(position) {
       this.position = position
     },
-     onChange(picker, value, index) {
-      console.log(`当前值：${value}, 当前索引：${index}`);
+    onChange(picker, value, index) {
+      console.log(`当前值：${value}, 当前索引：${index}`)
     },
     onPickerInitialed() {
       const value = this.$refs.picker.getColumnValues()
@@ -159,7 +204,7 @@ export default {
       if (value) {
         this.pickerValue = value.text
       }
-    },
+    }
   },
   mounted() {}
 }

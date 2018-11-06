@@ -1,16 +1,15 @@
 <template>
-  <div :class="['van-picker-column', className]" :style="columnStyle" @touchstart="onTouchStart" @touchmove.prevent="onTouchMove" @touchend="onTouchEnd" @touchcancel="onTouchEnd">
+  <div :class="['c_picker-column', className]" :style="columnStyle" @touchstart="onTouchStart" @touchmove.prevent="onTouchMove" @touchend="onTouchEnd" @touchcancel="onTouchEnd">
     <ul :style="wrapperStyle">
-      <li v-for="(option, index) in options" :key="index" v-html="getOptionText(option)" :style="optionStyle" class="van-ellipsis" :class="['van-picker-column__item',
-          isDisabled(option)?'van-picker-column__item--disabled':'',
-          index === currentIndex?'van-picker-column__item--selected':''
+      <li v-for="(option, index) in options" :key="index" v-html="getOptionText(option)" :style="optionStyle" class="van-ellipsis" :class="['c_picker-column__item',
+          isDisabled(option)?'c_picker-column__item--disabled':'',
+          index === currentIndex?'c_picker-column__item--selected':''
         ]" @click="setIndex(index, true)" />
     </ul>
   </div>
 </template>
 
 <script>
-// import create from '../utils/create';
 import deepClone from './_util/deep-clone'
 import { isObj, range } from './_util'
 const DEFAULT_DURATION = 200
@@ -21,6 +20,7 @@ export default {
     className: String,
     itemHeight: Number,
     visibleItemCount: Number,
+    px2remUnit: [String, Number],
     initialOptions: {
       type: Array,
       default: () => []
@@ -62,19 +62,21 @@ export default {
     },
     columnStyle() {
       return {
-        height: this.itemHeight * this.visibleItemCount + 'px'
+        height:
+          this.itemHeight * this.visibleItemCount * this.px2remUnit + 'rem'
       }
     },
     wrapperStyle() {
       return {
         transition: `${this.duration}ms`,
-        transform: `translate3d(0, ${this.offset + this.baseOffset}px, 0)`,
-        lineHeight: this.itemHeight + 'px'
+        transform: `translate3d(0, ${(this.offset + this.baseOffset) *
+          this.px2remUnit}rem, 0)`,
+        lineHeight: this.itemHeight * this.px2remUnit + 'rem'
       }
     },
     optionStyle() {
       return {
-        height: this.itemHeight + 'px'
+        height: this.itemHeight * this.px2remUnit + 'rem'
       }
     }
   },

@@ -12,6 +12,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "dayjs": "^1.7.7",
     "html-loader": "^0.5.5",
     "lib-flexible": "^0.3.2",
     "markdown-loader": "^4.0.0",

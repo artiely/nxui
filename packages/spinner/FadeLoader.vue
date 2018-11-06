@@ -1,5 +1,5 @@
 <template>
-  <div class="v-spinner" v-bind:style="{position: 'relative', fontSize: 0}" v-show="loading">
+  <div class="v-spinner" v-show="loading">
     <!-- <div class="v-spinner" v-bind:style="containerStyle"> -->
     <div class="v-fade v-fade1" v-bind:style="[spinnerStyle,animationStyle1]">
     </div>
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: 'fade-loader',
+  name: 'nx-fade-loader',
 
   props: {
     loading: {
@@ -144,6 +144,8 @@ export default {
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   position: absolute;
+  height:1em;
+  width:1em;
 }
 
 @-webkit-keyframes v-fadeStretchDelay {

@@ -1,18 +1,18 @@
 <template>
-  <div class="van-picker">
-    <div class="van-picker__toolbar van-hairline--top-bottom" v-if="showToolbar">
+  <div class="c_picker">
+    <div class="c_picker__toolbar" v-if="showToolbar">
       <slot>
-        <div class="van-picke__cancel" @click="emit('cancel')">{{ cancelButtonText || 取消 }}</div>
-        <div class="van-picker__title van-ellipsis" v-if="title" v-text="title" />
-        <div class="van-picker__confirm" @click="emit('confirm')">{{ confirmButtonText || 确定 }}</div>
+        <div class="c_picker__cancel" @click="emit('cancel')">{{ cancelButtonText || '取消' }}</div>
+        <div class="c_picker__title van-ellipsis" v-if="title" v-text="title" />
+        <div class="c_picker__confirm" @click="emit('confirm')" ontouchstart="">{{ confirmButtonText || '确定' }}</div>
       </slot>
     </div>
-    <div v-if="loading" class="van-picker__loading">
-      <loading />
+    <div v-if="loading" class="c_picker__loading">
+      <nx-beat-loader color="#1690ff"></nx-beat-loader>
     </div>
-    <div class="van-picker__columns" :style="columnsStyle" @touchmove.prevent>
-      <picker-column v-for="(item, index) in (simple ? [columns] : columns)" :key="index" :value-key="valueKey" :initial-options="simple ? item : item.values" :class-name="item.className" :default-index="item.defaultIndex" :item-height="itemHeight" :visible-item-count="visibleItemCount" @change="onChange(index)" />
-      <div class="van-picker__frame van-hairline--top-bottom" :style="frameStyle" />
+    <div class="c_picker__columns" :style="columnsStyle" @touchmove.prevent>
+      <picker-column v-for="(item, index) in (simple ? [columns] : columns)" :key="index" :px2rem-unit="px2remUnit" :value-key="valueKey" :initial-options="simple ? item : item.values" :class-name="item.className" :default-index="item.defaultIndex" :item-height="itemHeight" :visible-item-count="visibleItemCount" @change="onChange(index)" />
+      <div class="c_picker__frame" :style="frameStyle" />
     </div>
   </div>
 </template>
@@ -42,11 +42,15 @@ export default {
     },
     itemHeight: {
       type: Number,
-      default: 44
+      default: 40
     },
     columns: {
       type: Array,
       default: () => []
+    },
+    px2remUnit: {
+      type: [String, Number],
+      default: 0.02666666
     }
   },
   data() {
@@ -62,7 +66,8 @@ export default {
     },
     columnsStyle() {
       return {
-        height: this.itemHeight * this.visibleItemCount + 'px'
+        height:
+          this.itemHeight * this.visibleItemCount * this.px2remUnit + 'rem'
       }
     },
     simple() {
@@ -162,33 +167,31 @@ export default {
 }
 </script>
 <style lang="less">
-@white: #fff;
-@blue: #1690ff;
-@active-color: #333;
-@gray-dark: #eee;
-@text-color: #555;
-.van-picker {
+@import './var';
+.c_picker {
   overflow: hidden;
   user-select: none;
   position: relative;
-  background-color: @white;
+  background-color: #fff;
   -webkit-text-size-adjust: 100%; /* avoid iOS text size adjust */
 
   &__toolbar {
     display: flex;
-    height: 44px;
-    line-height: 44px;
+    height: 50px;
+    line-height: 50px;
     justify-content: space-between;
+    border-bottom: 1px solid @picker-frame-border-color; /*no*/
   }
 
   &__cancel,
   &__confirm {
-    color: @blue;
+    color: @picker-btn-color;
     padding: 0 15px;
-    font-size: 14px;
-
+    font-size: 16px;
+    font-weight: 500;
     &:active {
-      background-color: @active-color;
+      background-color: @picker-btn-bgcolor;
+      color: @picker-btn-color-active;
     }
   }
 
@@ -212,10 +215,6 @@ export default {
     z-index: 2;
     position: absolute;
     background-color: rgba(255, 255, 255, 0.9);
-
-    circle {
-      stroke: @blue;
-    }
   }
 
   &__loading .van-loading,
@@ -229,7 +228,10 @@ export default {
     pointer-events: none;
     transform: translateY(-50%);
   }
-
+  &__frame {
+    border-top: 1px solid @picker-frame-border-color; /*no*/
+    border-bottom: 1px solid @picker-frame-border-color; /*no*/
+  }
   &-column {
     flex: 1;
     overflow: hidden;
@@ -238,15 +240,16 @@ export default {
 
     &__item {
       padding: 0 5px;
-      color: @gray-dark;
+      color: @picker-candidate-color;
 
       &--selected {
-        font-weight: 500;
-        color: @text-color;
+        font-weight: 600;
+        font-size: 18px;
+        color: @picker-select-color;
       }
 
       &--disabled {
-        opacity: 0.3;
+        opacity: 0.5;
       }
     }
   }

@@ -1,12 +1,12 @@
 <template>
   <div class="c_cell-wrapper">
     <div class="c_cell-input-box">
-      <div class="c_cell-title" v-if="title">
+      <div class="c_cell-title c_cell-input-label" v-if="title">
         <slot name="title">{{title}}</slot>
       </div>
       <div class="c_cell-field">
         <sup class="c_cell-required" v-if="required">*</sup>
-        <input :type="type" class="c_cell-input-field" :placeholder="placeholder" :disabled="disabled" :value="value" @input="handleInput" :maxlength="maxlength">
+        <input :type="type" :class="['c_cell-input-field',disabled?'c_cell-input-field--disabled':'']" :placeholder="placeholder" :disabled="disabled" :value="value" @input="handleInput" :maxlength="maxlength">
         <div class="c_cell-right-icon">
           <nx-icon v-if="clear && value" class="c_cell-clear" :name="clearName" @click.native="handleClear"></nx-icon>
           <nx-icon v-if="eye" class="c_cell-eye" :name="eyeName" @click.native="changeEye"></nx-icon>
@@ -53,6 +53,10 @@ export default {
       default: false
     },
     required: {
+      type: Boolean,
+      default: false
+    },
+    justify: {
       type: Boolean,
       default: false
     }
@@ -112,35 +116,46 @@ export default {
 </script>
 
 <style scoped lang="less">
-@cell-height: 50px;
-@reqired-color: red;
-@border-color:#333;
+// @cell-height: 50px;
+// @cell-reqired-color: red;
+// @cell-border-color:#c7c7c7;
+@import './var';
 .c_cell-wrapper {
   position: relative;
   overflow: hidden;
   padding-left: 15px;
-  margin-bottom: -1px;
+  margin-bottom: -2px;/*no*/
   min-height: @cell-height;
   font-size: 16px;
-
   .c_cell-input-box {
     display: flex;
-    // .borderB();
-    border-bottom: 1px solid @border-color;/*no*/
+    border-bottom: 1px solid @cell-border-color; /*no*/
   }
   .c_cell-title {
     line-height: @cell-height;
+    height: @cell-height;
+    overflow: hidden;
+    &.c_cell-input-label {
+      min-width: 70px;
+      display: inline-block;
+      text-align: justify;
+      text-justify: inter-ideograph;
+      &::after {
+        display: inline-block /* Opera */;
+        width: 100%;
+        content: '';
+      }
+    }
   }
   .c_cell-field {
     position: relative;
-
     flex: 1;
     .c_cell-required {
       position: absolute;
       left: 0;
       top: 0;
       line-height: @cell-height;
-      color: @reqired-color;
+      color: @cell-reqired-color;
     }
     .c_cell-input-field {
       box-sizing: border-box;
@@ -154,8 +169,11 @@ export default {
       font-size: 16px;
       font-weight: 500;
       padding: 10px;
-      color: #333;
+      color: @cell-input-color;
       line-height: normal;
+      &.c_cell-input-field--disabled{
+        background: @cell-input-disabled-fill;
+      }
     }
     .c_cell-right-icon {
       position: absolute;

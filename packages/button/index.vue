@@ -63,6 +63,7 @@ export default {
   height: @button-height;
   line-height: @button-height;
   font-size: @button-font-size;
+
   &.circle {
     border-radius: @button-border-radius-circle;
   }
@@ -97,6 +98,16 @@ export default {
     color: @color-text-base-inverse;
     &:active {
       background-color: @button-primary-fill-tap;
+    }
+    &.disabled {
+      background-color: @button-primary-fill-disabled;
+    }
+  }
+  &.danger {
+    border: 1px solid red; /*no*/
+    color: red;
+    &:active {
+      background-color: lighten(#f00, 40%);
     }
     &.disabled {
       background-color: @button-primary-fill-disabled;
